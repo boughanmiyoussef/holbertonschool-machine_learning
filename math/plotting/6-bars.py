@@ -1,30 +1,36 @@
 #!/usr/bin/env python3
-"""Module to plot a histogram of student grades."""
+"""Module to plot a stacked bar graph of fruit quantities."""
 
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-def frequency():
-    """Plot a histogram of student grades with bins every 10 units."""
+def bars():
+    """Plot a stacked bar graph of fruit quantities per person."""
     np.random.seed(5)
-    student_grades = np.random.normal(68, 15, 50)
+    fruit = np.random.randint(0, 20, (4, 3))
     plt.figure(figsize=(6.4, 4.8))
-    
-    # Plot histogram with bins from 0 to 100, every 10 units
-    bins = np.arange(0, 101, 10)
-    plt.hist(student_grades, bins=bins, edgecolor='black')
-    
-    # Set x-axis and y-axis labels
-    plt.xlabel('Grades')
-    plt.ylabel('Number of Students')
-    
-    # Set title
-    plt.title('Project A')
-    
-    # Ensure x-axis ranges appropriately
-    plt.xlim(0, 100)
-    
+
+    people = ['Farrah', 'Fred', 'Felicia']
+    fruits = ['apples', 'bananas', 'oranges', 'peaches']
+    colors = ['red', 'yellow', '#ff8000', '#ffe5b4']
+
+    # Plot stacked bars
+    bottom = np.zeros(3)
+    for i, fruit_row in enumerate(fruit):
+        plt.bar(people, fruit_row, width=0.5, label=fruits[i],
+                color=colors[i], bottom=bottom)
+        bottom += fruit_row
+
+    # Set y-axis range and labels
+    plt.ylim(0, 80)
+    plt.ylabel('Quantity of Fruit')
+
+    # Add title
+    plt.title('Number of Fruit per Person')
+
+    # Add legend
+    plt.legend()
+
     # Display the plot
     plt.show()
-    
