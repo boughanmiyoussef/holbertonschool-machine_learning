@@ -10,8 +10,6 @@ import matplotlib.pyplot as plt
 def scatter():
     """
     Plots a scatter graph of men's height vs weight.
-
-    Data points are plotted in magenta.
     """
     mean = [69, 0]
     cov = [[15, 8], [8, 15]]
