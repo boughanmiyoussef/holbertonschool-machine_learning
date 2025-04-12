@@ -43,4 +43,3 @@ def frequency():
 
     # Show the plot
     plt.show()
-    
