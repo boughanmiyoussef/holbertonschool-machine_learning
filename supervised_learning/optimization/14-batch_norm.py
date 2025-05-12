@@ -30,4 +30,3 @@ def create_batch_norm_layer(prev, n, activation):
 
     # Apply the activation function
     return activation(Z_norm)
-    
