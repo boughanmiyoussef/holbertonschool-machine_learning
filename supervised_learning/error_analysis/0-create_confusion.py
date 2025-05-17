@@ -1,24 +1,29 @@
 #!/usr/bin/env python3
+"""Module for creating a confusion matrix."""
 import numpy as np
+
 
 def create_confusion_matrix(labels, logits):
     """
-    Creates a confusion matrix from one-hot label and prediction arrays.
-
+    Creates a confusion matrix.
     Args:
-        labels (np.ndarray): One-hot array of shape (m, classes) with true labels.
-        logits (np.ndarray): One-hot array of shape (m, classes) with predicted labels.
-
+        labels (numpy.ndarray): A one-hot numpy.ndarray of shape (m, classes)
+                            containing the correct labels for each data point.
+        logits (numpy.ndarray): A one-hot numpy.ndarray of shape (m, classes)
+                            containing the predicted labels.
     Returns:
-        np.ndarray: Confusion matrix of shape (classes, classes)
+        numpy.ndarray: A confusion matrix of shape (classes, classes) with row
+                        indices representing the correct labels and column
+                        indices representing the predicted labels.
     """
-    true_classes = np.argmax(labels, axis=1)     # shape (m,)
-    pred_classes = np.argmax(logits, axis=1)     # shape (m,)
+    true_labels = np.argmax(labels, axis=1)
+    pred_labels = np.argmax(logits, axis=1)
 
-    num_classes = labels.shape[1]
-    confusion = np.zeros((num_classes, num_classes))
+    classes = labels.shape[1]
 
-    for true, pred in zip(true_classes, pred_classes):
-        confusion[true][pred] += 1
+    confusion_matrix = np.zeros((classes, classes), dtype=float)
 
-    return confusion
+    for true_label, pred_label in zip(true_labels, pred_labels):
+        confusion_matrix[true_label, pred_label] += 1
+
+    return confusion_matrix
