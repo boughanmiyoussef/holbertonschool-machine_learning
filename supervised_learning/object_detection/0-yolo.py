@@ -1,8 +1,8 @@
-#!/usr/bin/env/ python3
+#!/usr/bin/env python3
 """
 Initialize Yolo
 """
-import tensorflow import keras as K
+from tensorflow import keras as K
 
 
 class Yolo:
@@ -18,8 +18,8 @@ class Yolo:
             the Darknet model is found
         - class_t: float representing the box score threshold for the
             initial filtering step
-        - nms_t: float represneting the IOU threshold for non-max 
-            supression
+        - nms_t: float representing the IOU threshold for non-max
+            suppression
         - anchors: numpy.ndarray of shape (outputs, anchor_boxes, 2)
             containing all of the anchor boxes
         """
