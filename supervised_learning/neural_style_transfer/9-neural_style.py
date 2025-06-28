@@ -118,7 +118,7 @@ class NST:
         input_layer_reshaped = tf.reshape(input_layer, (h * w, c))
 
         # Compute the gram matrix
-        gram = tf.matmul(input_layer_reshaped, input_layer_reshaped, transpose_a=True)
+        gram = tf.matmul(input_layer_reshaped, input_layer_reshaped, transpose_b=True)
 
         # Normalize the gram matrix
         gram_matrix = tf.expand_dims(gram / tf.cast(h * w, tf.float32), axis=0)
@@ -370,10 +370,9 @@ class NST:
             if step is not None and (i % step == 0 or i == iterations):
                 print("Cost at iteration {}: {}, content {}, style {}"
                       .format(i, J_total, J_content, J_style))
-
-        # remove sup dim
-        best_image = best_image[0]
-        best_image = tf.clip_by_value(best_image, 0, 1)
-        best_image = best_image.numpy()
+        
+        best_image = best_image[0]  # remove batch dimension
+        best_image = tf.clip_by_value(best_image, 0, 1)  # clip pixel range
+        best_image = best_image.numpy().astype(np.float32)  # convert to numpy float32
 
         return best_image, best_cost
