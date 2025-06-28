@@ -42,7 +42,8 @@ class NST:
     def scale_image(image):
         if not isinstance(image, np.ndarray) or image.shape[-1] != 3:
             raise TypeError("image must be a numpy.ndarray with shape (h, w, 3)")
-        resized = tf.image.resize(image, [256, 512], method='bicubic')
+
+        resized = tf.image.resize(image, size=[256, 512], method='bicubic')
         normalized = resized / 255.0
         clipped = tf.clip_by_value(normalized, 0, 1)
         return tf.expand_dims(clipped, axis=0)
@@ -62,6 +63,9 @@ class NST:
 
     @staticmethod
     def gram_matrix(input_layer):
+        if not isinstance(input_layer, (tf.Tensor, tf.Variable)) or len(input_layer.shape) != 4:
+            raise TypeError("input_layer must be a tensor of rank 4")
+
         _, h, w, c = input_layer.shape
         flattened = tf.reshape(input_layer, (h * w, c))
         gram = tf.matmul(tf.transpose(flattened), flattened)
@@ -73,7 +77,7 @@ class NST:
 
         style_outputs = self.model(preprocessed_style)
         content_output = style_outputs[-1]
-        style_features = [NST.gram_matrix(layer) for layer in style_outputs[:-1]]
+        style_features = [self.gram_matrix(layer) for layer in style_outputs[:-1]]
 
         return style_features, content_output
 
@@ -103,7 +107,6 @@ class NST:
         return grad, J_total, J_content, J_style
 
     def generate_image(self, iterations=2000, step=None, lr=0.002, beta1=0.9, beta2=0.99):
-        # Input validation
         if not isinstance(iterations, int):
             raise TypeError("iterations must be an integer")
         if iterations <= 0:
