@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Optimum K method aka inversed elbow"""
+
+# This module contains a function to calculate the total intra-cluster variance.
 
 import numpy as np
 kmeans = __import__('1-kmeans').kmeans
