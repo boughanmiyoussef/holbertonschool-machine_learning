@@ -1,34 +1,48 @@
 #!/usr/bin/env python3
-# 5-pdf.py
-"""5-pdf.py"""
-
-
+"""
+Clustering module
+"""
 import numpy as np
 
 
 def pdf(X, m, S):
     """
-    calculates the probability density function of a Gaussian distribution
+    Calculates the probability density function of a Gaussian distribution
+    Args:
+        X is a numpy.ndarray of shape (n, d)
+        m is a numpy.ndarray of shape (d,)
+        S is a numpy.ndarray of shape (d, d)
+    Returns:
+        P, or None
+            P is a numpy.ndarray of shape (n,)
+    All values in P should have a minimum value of 1e-300
     """
-    if not isinstance(X, np.ndarray) or X.ndim != 2:
-        return None
-    if not isinstance(m, np.ndarray) or m.ndim != 1:
-        return None
-    if not isinstance(S, np.ndarray) or S.ndim != 2:
-        return None
-    if (X.shape[1] != m.shape[0] or S.shape[0] != S.shape[1]
-            or S.shape[0] != m.shape[0]):
+    if (not isinstance(X, np.ndarray) or not isinstance(m, np.ndarray)
+            or not isinstance(S, np.ndarray)):
         return None
 
-    det_cov = np.linalg.det(S)
-    if det_cov <= 0:  # Check for invalid determinant
-        return np.full(X.shape[0], 1e-300)
+    if len(X.shape) != 2 or len(m.shape) != 1 or len(S.shape) != 2:
+        return None
 
-    inv_cov = np.linalg.inv(S)
-    X_centered = X - m
-    coef = 1 / np.sqrt((2 * np.pi) ** X.shape[1] * det_cov)
-    exponent = -0.5 * np.sum(X_centered @ inv_cov * X_centered, axis=1)
+    n, d = X.shape
 
-    P = coef * np.exp(exponent)
-    P = np.maximum(P, 1e-300)
-    return P
+    if m.shape[0] != d or S.shape != (d, d):
+        return None
+
+    try:
+        det = np.linalg.det(S)
+
+        inv = np.linalg.inv(S)
+
+        norm_const = 1.0 / np.sqrt(((2 * np.pi) ** d) * det)
+
+        diff = X - m
+
+        exponent = -0.5 * np.sum(diff @ inv * diff, axis=1)
+
+        P = norm_const * np.exp(exponent)
+
+        return np.maximum(P, 1e-300)
+    except Exception:
+        return None
+    
