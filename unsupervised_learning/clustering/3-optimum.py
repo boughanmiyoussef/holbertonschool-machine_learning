@@ -1,26 +1,67 @@
 #!/usr/bin/env python3
-"""Contains optimum function."""
-
-
+"""
+Clustering module
+"""
 import numpy as np
 kmeans = __import__('1-kmeans').kmeans
 variance = __import__('2-variance').variance
 
 
 def optimum_k(X, kmin=1, kmax=None, iterations=1000):
-    """tests for optimum number of clusters by variance."""
+    """
+    Tests for the optimum number of clusters by variance
+    Args:
+        X is a numpy.ndarray of shape (n, d)
+        kmin is a positive integer containing the minimum number of clusters
+        kmax is a positive integer containing the maximum number of clusters
+        iterations is a positive integer containing the maximum of iterations
+    Returns:
+        results, d_vars, or None, None
+            results is a list containing the outputs of K-means
+            d_vars is a list containing the difference in variance
+    """
+    if not isinstance(X, np.ndarray) or X.ndim != 2:
+        return None, None
+
+    if not isinstance(kmin, int) or kmin <= 0:
+        return None, None
+
+    if kmax is not None and (not isinstance(kmax, int) or kmax < kmin):
+        return None, None
+
+    if not isinstance(iterations, int) or iterations <= 0:
+        return None, None
+
+    if isinstance(kmax, int) and kmax <= kmin:
+        return None, None
+
+    if kmax is None:
+        max_cluster = X.shape[0]
+    else:
+        max_cluster = kmax
+
     results = []
     d_vars = []
 
-    baseline_var = None
-    for k in range(kmin, kmax + 1):
-        c, clss = kmeans(X, k, iterations)
-        var = variance(X, c)
-        results.append((c, clss))
-        d_vars.append(abs(
-            var - (baseline_var if baseline_var is not None else(
-                baseline_var := var
-            ))
-        ))
+    C, clss = kmeans(X, kmin, iterations)
+
+    results.append((C, clss))
+
+    base_var = variance(X, C)
+
+    d_vars = [0.0]
+
+    k = kmin + 1
+
+    while k < max_cluster + 1:
+        C, clss = kmeans(X, k, iterations)
+
+        current_var = variance(X, C)
+
+        results.append((C, clss))
+
+        d_vars.append(base_var - current_var)
+
+        k += 1
 
     return results, d_vars
