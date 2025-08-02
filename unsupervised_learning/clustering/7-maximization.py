@@ -1,6 +1,5 @@
-
 #!/usr/bin/env python3
-# 7-maximization.py 
+# 7-maximization.py
 """7-maximization.py"""
 
 
