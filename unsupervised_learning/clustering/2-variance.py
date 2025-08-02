@@ -1,34 +1,28 @@
 
 #!/usr/bin/env python3
-"""Calculates total intra-cluster variance"""
+"""
+Clustering module
+"""
 import numpy as np
 
 
 def variance(X, C):
     """
-    Calculates the total intra-cluster variance for a dataset.
-
-    Parameters:
-    - X (numpy.ndarray): 2D numpy array of shape `(n, d)` with the dataset.
-        - n is the number of data points
-        - d is the number of dimensions for each data point
-    - C (numpy.ndarray): 2D numpy array of shape `(k, d)` with the centroid
-        means for each cluster.
-        - k is the number of clusters
-        - d is the number of dimensions for each cluster centroid
-
+    Calculates the total intra-cluster variance for a data set
+    Args:
+        X is a numpy.ndarray of shape (n, d)
+        C is a numpy.ndarray of shape (k, d)
     Returns:
-    - float: The total variance, or `None` on failure.
+        var, or None on failure
+            var is the total variance
     """
-    if not isinstance(X, np.ndarray) or X.ndim != 2:
-        return None
-    if not isinstance(C, np.ndarray) or C.ndim != 2:
-        return None
-    if X.shape[1] != C.shape[1]:
-        return None
+    try:
+        distances = np.linalg.norm(X[:, np.newaxis] - C, axis=2)
 
-    # Distances to closest centroid from each point
-    dists = np.min(np.linalg.norm(X[:, np.newaxis] - C, axis=-1), axis=-1)
+        closet_centroid = np.argmin(distances, axis=1)
 
-    # Variance of minimum distances to centroids (intra-cluster variance)
-    return np.sum(dists ** 2)
+        var = np.sum((X - C[closet_centroid]) ** 2)
+
+        return var
+    except Exception:
+        return None
