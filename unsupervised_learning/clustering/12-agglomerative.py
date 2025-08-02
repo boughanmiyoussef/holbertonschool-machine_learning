@@ -1,22 +1,26 @@
-#!/usr/bin/env python3
-""" Agglomerative clustering using scikit """
 
-import scipy.cluster.hierarchy as sch
+#!/usr/bin/env python3
+"""
+Clustering module
+"""
+import scipy.cluster.hierarchy
 import matplotlib.pyplot as plt
 
 
 def agglomerative(X, dist):
     """
-    Agglomerative clustering
+    Function that performs agglomerative clustering on a dataset
     Args:
-        X: numpy.ndarray of shape (n, d) containing the dataset
-        dist: maximum cophenetic distance for all clusters
-    Returns: clss, a numpy.ndarray of shape (n,) containing the cluster
-             indices for each data point
+        X is a numpy.ndarray of shape (n, d)
+        dist is the maximum cophenetic distance for all clusters
+    Returns:
+        clss, a numpy.ndarray of shape (n,)
     """
-    linkage = sch.linkage(X, method='ward')
-    clss = sch.fcluster(linkage, t=dist, criterion='distance')
-    plt.figure()
-    sch.dendrogram(linkage, color_threshold=dist)
+
+    Z = scipy.cluster.hierarchy.linkage(X, method='ward')
+    fig = plt.figure(figsize=(25, 10))
+    dn = scipy.cluster.hierarchy.dendrogram(Z, color_threshold=dist)
     plt.show()
+    clss = scipy.cluster.hierarchy.fcluster(Z, t=dist, criterion='distance')
+
     return clss
