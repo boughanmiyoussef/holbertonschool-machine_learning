@@ -45,4 +45,3 @@ def pdf(X, m, S):
         return np.maximum(P, 1e-300)
     except Exception:
         return None
-    
