@@ -31,7 +31,7 @@ def convolutional_GenDiscr():
             keras.layers.Conv2D(1, (3, 3), padding="same"),
             keras.layers.BatchNormalization(),
             keras.layers.Activation("tanh")
-            ], name="generator")
+        ], name="generator")
         return model
 
     def discriminator():
@@ -54,7 +54,7 @@ def convolutional_GenDiscr():
             keras.layers.Activation("tanh"),
             keras.layers.Flatten(),
             keras.layers.Dense(1)
-            ], name="discriminator")
+        ], name="discriminator")
         return model
 
     return generator(), discriminator()

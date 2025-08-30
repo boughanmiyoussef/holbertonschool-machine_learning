@@ -40,7 +40,8 @@ class WGAN_GP(keras.Model):
                                loss=self.generator.loss)
 
         # Discriminator: maximize D(real) - D(fake)
-        self.discriminator.loss = lambda real, fake: tf.reduce_mean(fake) - tf.reduce_mean(real)
+        self.discriminator.loss = lambda real, fake: tf.reduce_mean(
+            fake) - tf.reduce_mean(real)
         self.discriminator.optimizer = keras.optimizers.Adam(
             learning_rate=self.lr, beta_1=self.beta1, beta_2=self.beta2
         )
@@ -53,7 +54,8 @@ class WGAN_GP(keras.Model):
         """
         if size is None:
             size = self.batch_size
-        indices = tf.random.shuffle(tf.range(tf.shape(self.real_data)[0]))[:size]
+        indices = tf.random.shuffle(
+            tf.range(tf.shape(self.real_data)[0]))[:size]
         return tf.gather(self.real_data, indices)
 
     def get_fake_sample(self, size=None, training=False):
@@ -69,7 +71,8 @@ class WGAN_GP(keras.Model):
         """
         Generate random interpolation between real and fake.
         """
-        alpha = tf.random.uniform(shape=[self.batch_size] + [1]*(len(real.shape)-1))
+        alpha = tf.random.uniform(
+            shape=[self.batch_size] + [1]*(len(real.shape)-1))
         return real * alpha + fake * (1 - alpha)
 
     def compute_gp(self, interpolated):
@@ -80,7 +83,8 @@ class WGAN_GP(keras.Model):
             tape.watch(interpolated)
             preds = self.discriminator(interpolated, training=True)
         grads = tape.gradient(preds, interpolated)
-        norm = tf.sqrt(tf.reduce_sum(tf.square(grads), axis=list(range(1, len(grads.shape)))))
+        norm = tf.sqrt(tf.reduce_sum(tf.square(grads),
+                       axis=list(range(1, len(grads.shape)))))
         return tf.reduce_mean(tf.square(norm - 1.0))
 
     def train_step(self, _):
@@ -100,7 +104,8 @@ class WGAN_GP(keras.Model):
                 gp_term = self.compute_gp(inter_samples)
                 total_disc_loss = disc_loss + self.lambda_gp * gp_term
 
-            disc_grads = tape.gradient(total_disc_loss, self.discriminator.trainable_variables)
+            disc_grads = tape.gradient(
+                total_disc_loss, self.discriminator.trainable_variables)
             self.discriminator.optimizer.apply_gradients(
                 zip(disc_grads, self.discriminator.trainable_variables)
             )
