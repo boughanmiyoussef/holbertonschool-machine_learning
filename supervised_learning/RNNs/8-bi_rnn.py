@@ -1,45 +1,48 @@
-
 #!/usr/bin/env python3
-
-"""Performs forward propagation for a bidirectional RNN"""
+"""
+Performs forward propagation for a deep RNN
+"""
 import numpy as np
 
 
-def bi_rnn(bi_cell, X, h_0, h_t):
-    """Performs forward propagation for bidirectional RNN
-    @bi_cell: instance of BidirectionalCell that will be used for the forward
-    propagation
-    @X: data to be used, given as a np.ndarray shape(t, m, i)
-        @t: maxium number of time steps
-        @m: batch size
-        @i: dimensionality of the data
-    @h_0: initial hidden state in the forward direction, np.ndarray
-    shape(m, h)
-        @h: dimensionality of the hidden state
-    @h_t: initial hidden state in the backward direction, np.ndarray
-    shape(m, h)
-    Return: H, Y
-        @H: np.ndarray, all the concatenated hidden states
-        @Y: np.ndarray, all of the outputs
+def deep_rnn(rnn_cells, X, h_0):
     """
-    t = X.shape[0]
+    Performs forward propagation for a deep RNN
 
-    H_f_state = [0] * (t + 1)
-    H_b_state = [0] * (t + 1)
+    Args:
+        rnn_cells: list of RNNCell instances of length l
+        X: np.ndarray of shape (t, m, i) with input data
+        h_0: np.ndarray of shape (l, m, h) with initial hidden states
 
-    H_f_state[0] = h_0
-    H_b_state[t] = h_t
+    Returns:
+        H: np.ndarray of shape (t + 1, l, m, h) containing hidden states
+        Y: np.ndarray of shape (t, m, o) containing outputs
+    """
+    t, m, _ = X.shape
+    l, _, h = h_0.shape
+    o = rnn_cells[-1].by.shape[1]  # output dimension from the last RNNCell
 
-    for i in range(t):
-        H_f_state[i + 1] = bi_cell.forward(H_f_state[i], X[i])
+    # Initialize hidden states and outputs
+    H = np.zeros((t + 1, l, m, h))
+    H[0] = h_0
+    Y = np.zeros((t, m, o))
 
-    for i in range(t - 1, -1, -1):
-        H_b_state[i] = bi_cell.backward(H_b_state[i+1], X[i])
+    for step in range(t):
+        x_t = X[step]
 
-    H_f_state = np.array(H_f_state[1:])
-    H_b_state = np.array(H_b_state[:-1])
+        for layer in range(l):
+            rnn_cell = rnn_cells[layer]
+            h_prev = H[step, layer]
 
-    H = np.concatenate((H_f_state, H_b_state), axis=-1)
-    Y = bi_cell.output(H)
+            if layer == 0:
+                x_in = x_t
+            else:
+                x_in = H[step + 1, layer - 1]
+
+            h_next, y = rnn_cell.forward(h_prev, x_in)
+            H[step + 1, layer] = h_next
+
+        # Use the output from the last layer only
+        Y[step] = y
 
     return H, Y
