@@ -1,5 +1,6 @@
 
 #!/usr/bin/env python3
+
 """Performs forward propagation for a deep RNN"""
 import numpy as np
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """Class that represents an LSTM unit"""
 import numpy as np
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """Performs forward propagation for a simple RNN"""
 import numpy as np
 
