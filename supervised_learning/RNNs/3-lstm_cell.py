@@ -5,6 +5,7 @@ import numpy as np
 
 class LSTMCell():
     """epresents an LSTM unit"""
+
     def __init__(self, i, h, o):
         """Constructor
         @i: dimensionality of the data

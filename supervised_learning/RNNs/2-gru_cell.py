@@ -6,6 +6,7 @@ import numpy as np
 
 class GRUCell():
     """Represents a cell of a simple RNN"""
+
     def __init__(self, i, h, o):
         """Constructor
         @i: dimensionality of the data

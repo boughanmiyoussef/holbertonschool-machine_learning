@@ -5,6 +5,7 @@ import numpy as np
 
 class BidirectionalCell():
     """represents a bidirectional cell of a RNN"""
+
     def __init__(self, i, h, o):
         """Constructor
         @i: dimensionality of the data
