@@ -22,8 +22,6 @@ Hi! I'm **Youssef Boughanmi**, a **Software Engineer specializing in AI & Machin
 I love building intelligent systems, understanding the math behind models, and creating clean, scalable code that solves real problems.
 
 - 🔗 **LinkedIn:** https://linkedin.com/in/youssef-boughanmi-4990222a0  
-- 🐦 **Twitter/X:** (add your handle if you want it)  
-- 💼 **Portfolio Repo:** (add your portfolio repository link)  
 - 📧 **Email:** yussefboughanmy@gmail.com  
 
 I built every project in this repo with the goal of mastering ML beyond theory — by **implementing everything step by step**, debugging models, and understanding *why* they work.
@@ -114,16 +112,6 @@ Bringing ML into the real world:
 - ML pipeline design  
 
 This part taught me how ML systems are deployed, scaled, and integrated in production environments.
-
----
-
-# 📸 Screenshots
-
-<p align="center">
-  <img src="images/MachineLearning.png" width="600" alt="ML Curriculum Screenshot"/>
-</p>
-
-> Add more images here if you want (Landingpage1, 2, etc.)
 
 ---
 
