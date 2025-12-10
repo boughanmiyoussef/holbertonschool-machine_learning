@@ -9,9 +9,12 @@ def crop_image(image, size):
     """
     Performs a random crop of an image
     Args:
-        image is a 3D tf.Tensor containing the image to crop
-        size is a tuple containing the size of the crop
+        image: 3-D tf.Tensor (H, W, C)
+        size:  tuple (h, w, c) giving the desired crop size
     Returns:
-        the cropped image
+        3-D tf.Tensor of shape (h, w, c)
     """
-    return tf.image.random_crop(image, size=size)
+    h, w, c = size
+    cropped = tf.image.random_crop(image, (h, w))
+    cropped.set_shape((h, w, c))
+    return cropped
