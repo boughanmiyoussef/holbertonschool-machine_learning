@@ -12,7 +12,4 @@ def crop_image(image, size):
     :param size: is a tuple containing the size of the crop
     :return: the cropped image
     """
-    h, w, c = size
-    return tf.image.stateless_random_crop(
-        image, (h, w, c), seed=tf.constant([1, 0])
-    )
+    return tf.image.random_crop(image, size=size)
