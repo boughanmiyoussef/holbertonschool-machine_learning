@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
-
-"""script for
 """
+Defines function that performs a random crop of an image
+"""
+
 
 import tensorflow as tf
 
 
 def crop_image(image, size):
-    """[Function that flips an image horizontally]
-
-    Args:
-        image ([ 3D tf.Tensor]): [tf.Tensor containing the image to flip]
-        size is a tuple containing the size of the crop
-    Returns
-        the flipped image
     """
+    Performs a random crop of an image
 
-    # TensorFlow. 'x' = A placeholder for an image.
+    parameters:
+        image [3D td.Tensor]:
+            contains the image to crop
+        size [tuple]:
+            contains the size of the crop
 
-    cropped_image = tf.image.random_crop(image, size)
-
-    return cropped_image
+    returns:
+        the cropped image
+    """
+    return (tf.image.random_crop(image, crop_size=size))
