@@ -1,20 +1,17 @@
 #!/usr/bin/env python3
-"""
-Crop
-"""
 import tensorflow as tf
-
 
 def crop_image(image, size):
     """
     Performs a random crop of an image
     Args:
-        image: 3-D tf.Tensor (H, W, C)
-        size:  tuple (h, w, c) giving the desired crop size
+        image is a 3D tf.Tensor containing the image to crop
+        size is a tuple containing the size of the crop
     Returns:
-        3-D tf.Tensor of shape (h, w, c)
+        the cropped image
     """
     h, w, c = size
-    cropped = tf.image.random_crop(image, (h, w))
-    cropped.set_shape((h, w, c))
-    return cropped
+    crop = tf.image.stateless_random_crop(
+        image, (h, w, c), seed=tf.constant([1, 1])
+    )
+    return crop
