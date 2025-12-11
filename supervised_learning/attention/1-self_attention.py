@@ -6,6 +6,8 @@ SelfAttention module for machine translation using TensorFlow.
 import tensorflow as tf
 
 
+
+
 class SelfAttention(tf.keras.layers.Layer):
     """
     SelfAttention class that inherits from TensorFlow's Keras Layer.
