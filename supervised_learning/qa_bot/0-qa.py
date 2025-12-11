@@ -10,6 +10,7 @@ tokenizer = BertTokenizer.from_pretrained(
 )
 model = hub.load('https://tfhub.dev/see--/bert-uncased-tf2-qa/1')
 
+
 def question_answer(question, reference):
     """Answers a question from a reference text using BERT"""
     # Tokenize
