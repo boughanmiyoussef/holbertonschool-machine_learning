@@ -6,6 +6,7 @@ RNNEncoder module for machine translation encoding using TensorFlow.
 import tensorflow as tf
 
 
+
 class RNNEncoder(tf.keras.layers.Layer):
     """
     RNNEncoder class that inherits from TensorFlow's Keras Layer.
