@@ -3,6 +3,7 @@
 Decoder module for the transformer.
 """
 
+
 import tensorflow as tf
 positional_encoding = __import__('4-positional_encoding').positional_encoding
 DecoderBlock = __import__('8-transformer_decoder_block').DecoderBlock

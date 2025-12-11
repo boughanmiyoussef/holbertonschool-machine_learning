@@ -4,6 +4,7 @@ DecoderBlock module for creating a decoder block for a transformer using
 TensorFlow.
 """
 
+
 import tensorflow as tf
 MultiHeadAttention = __import__('6-multihead_attention').MultiHeadAttention
 

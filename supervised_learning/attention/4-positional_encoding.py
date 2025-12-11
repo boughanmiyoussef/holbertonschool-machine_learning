@@ -6,6 +6,7 @@ Calculates the positional encoding for a transformer.
 import numpy as np
 
 
+
 def positional_encoding(max_seq_len, dm):
     """
     Calculates the positional encoding for a transformer.
