@@ -26,6 +26,7 @@ def policy(state, weight):
     return softmax(z)
 
 
+
 def policy_gradient(state, weight):
     """
     Compute the Monte-Carlo policy gradient based on state and a weight matrix
