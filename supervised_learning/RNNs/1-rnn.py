@@ -5,6 +5,7 @@ for a simple Recurrent Neural network (RNN) using an instance of the RNNCell
 class.
 """
 
+
 import numpy as np
 
 

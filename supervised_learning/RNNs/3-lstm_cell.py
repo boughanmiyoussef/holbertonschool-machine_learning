@@ -4,6 +4,7 @@
 import numpy as np
 
 
+
 class LSTMCell():
     """epresents an LSTM unit"""
 

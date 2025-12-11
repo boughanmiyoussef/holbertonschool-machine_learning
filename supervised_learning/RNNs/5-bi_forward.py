@@ -5,6 +5,7 @@ Bidirectional Cell Forward
 import numpy as np
 
 
+
 class BidirectionalCell:
     """
     Represents a bidirectional cell of an RNN
