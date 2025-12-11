@@ -2,6 +2,7 @@
 
 question_answer = __import__('0-qa').question_answer
 
+
 def answer_loop(reference):
     """Answers questions interactively from a single reference"""
     while True:
