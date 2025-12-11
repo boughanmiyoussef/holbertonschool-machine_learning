@@ -6,6 +6,7 @@ import numpy as np
 # Load USE
 embed = hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
 
+
 def semantic_search(corpus_path, sentence):
     """Performs semantic search on a corpus of documents"""
     docs = []
