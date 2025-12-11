@@ -5,6 +5,7 @@ Bidirectional Recurrent Neural Network
 import numpy as np
 
 
+
 def bi_rnn(bi_cell, X, h_0, h_t):
     """
     forward propagation for a bidirectional RNN

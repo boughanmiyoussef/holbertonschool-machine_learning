@@ -4,6 +4,8 @@
 import numpy as np
 
 
+
+
 class RNNCell():
     """Represents a cell of a simple RNN"""
 

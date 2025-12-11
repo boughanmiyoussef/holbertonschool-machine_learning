@@ -5,6 +5,8 @@ Gated Recurrent Unit (GRU)
 import numpy as np
 
 
+
+
 class GRUCell:
     """
     Represents a gated recurrent unit

@@ -4,6 +4,7 @@
 import numpy as np
 
 
+
 class BidirectionalCell():
     """represents a bidirectional cell of a RNN"""
 
