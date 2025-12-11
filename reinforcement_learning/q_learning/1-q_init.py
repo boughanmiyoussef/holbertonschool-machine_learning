@@ -5,6 +5,7 @@ Initialize Q-table
 import numpy as np
 
 
+
 def q_init(env):
     """
     Initialize the Q-table for the given environment.
