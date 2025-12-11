@@ -6,6 +6,7 @@ from tensorflow import keras as K
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
+ransfer Knowledge with DenseNet121 on CIFAR-10
 
 def preprocess_data(X, Y):
     """
