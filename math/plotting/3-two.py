@@ -1,30 +1,34 @@
 #!/usr/bin/env python3
-"""Module to plot a histogram of student grades."""
+"""This module plots exponential decay of C-14 and Ra-226."""
 
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-def frequency():
-    """Plot a histogram of student grades with bins every 10 units."""
-    np.random.seed(5)
-    student_grades = np.random.normal(68, 15, 50)
+def two():
+    """
+    Plot exponential decay of C-14 and Ra-226.
+
+    C-14 is plotted with a red dashed line.
+    Ra-226 is plotted with a green solid line.
+    The plot shows the fraction of each element remaining over time.
+    """
+    x = np.arange(0, 21000, 1000)
+    r = np.log(0.5)
+    t1 = 5730
+    t2 = 1600
+    y1 = np.exp((r / t1) * x)
+    y2 = np.exp((r / t2) * x)
     plt.figure(figsize=(6.4, 4.8))
-    
-    # Plot histogram with bins from 0 to 100, every 10 units
-    bins = np.arange(0, 101, 10)
-    plt.hist(student_grades, bins=bins, edgecolor='black')
-    
-    # Set x-axis and y-axis labels
-    plt.xlabel('Grades')
-    plt.ylabel('Number of Students')
-    
-    # Set title
-    plt.title('Project A')
-    
-    # Ensure x-axis ranges appropriately
-    plt.xlim(0, 100)
-    
-    # Display the plot
+
+    plt.plot(x, y1, 'r--', label='C-14')
+    plt.plot(x, y2, 'g-', label='Ra-226')
+
+    plt.xlabel('Time (years)')
+    plt.ylabel('Fraction Remaining')
+    plt.title('Exponential Decay of Radioactive Elements')
+    plt.xlim(0, 20000)
+    plt.ylim(0, 1)
+    plt.legend(loc='upper right')
+
     plt.show()
-    
