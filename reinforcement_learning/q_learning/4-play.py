@@ -6,7 +6,9 @@ using the trained Q-table and rendering each step.
 
 import numpy as np
 
+
 ACTION_NAMES = ["Left", "Down", "Right", "Up"]
+
 
 def play(env, Q, max_steps=100):
     """
