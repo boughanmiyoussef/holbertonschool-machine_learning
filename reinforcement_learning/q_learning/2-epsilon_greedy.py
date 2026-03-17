@@ -5,7 +5,6 @@ Epsilon Greedy
 import numpy as np
 
 
-
 def epsilon_greedy(Q, state, epsilon):
     """
     Epsilon Greedy
