@@ -51,7 +51,7 @@ class NST:
         self.model = None
         self.load_model()
         self.gram_style_features, self.content_feature = (
-            self.generate_features())
+                self.generate_features())
         self.var = var
 
     @staticmethod
@@ -62,7 +62,7 @@ class NST:
         """
         if not isinstance(image, np.ndarray) or image.shape[-1] != 3:
             raise (TypeError
-                   ("image must be a numpy.ndarray with shape (h, w, 3)"))
+                    ("image must be a numpy.ndarray with shape (h, w, 3)"))
 
         h, w, _ = image.shape
 
@@ -95,7 +95,7 @@ class NST:
         modelVGG19 = tf.keras.applications.VGG19(
             include_top=False,
             weights='imagenet'
-        )
+            )
 
         modelVGG19.trainable = False
 
@@ -104,7 +104,7 @@ class NST:
 
         outputs = [
             modelVGG19.get_layer(name).output for name in selected_layers
-        ]
+            ]
 
         # construct model
         model = tf.keras.Model([modelVGG19.input], outputs)
@@ -112,8 +112,7 @@ class NST:
         # replace MaxPooling layer by AveragePooling layer
         custom_objects = {'MaxPooling2D': tf.keras.layers.AveragePooling2D}
         tf.keras.models.save_model(model, 'vgg_base.h5')
-        model_avg = tf.keras.models.load_model(
-            'vgg_base.h5', custom_objects=custom_objects)
+        model_avg = tf.keras.models.load_model('vgg_base.h5', custom_objects=custom_objects)
 
         self.model = model_avg
 
@@ -375,7 +374,7 @@ class NST:
         for i in range(iterations + 1):
             # compute gradients and costs
             grads, J_total, J_content, J_style, J_var = (
-                self.compute_grads(generated_image))
+                    self.compute_grads(generated_image))
 
             # use opt
             optimizer.apply_gradients([(grads, generated_image)])
