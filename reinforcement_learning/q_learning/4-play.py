@@ -5,7 +5,6 @@ Play
 import numpy as np
 
 
-
 def play(env, Q, max_steps=100):
     """
     Play the FrozenLake environment using the Q-table
