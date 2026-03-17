@@ -1,30 +1,29 @@
 #!/usr/bin/env python3
 """
-Load the Environment
+Module that loads the pre-made FrozenLake environment from gymnasium
 """
+
 import gymnasium as gym
 
 
-
-def load_frozen_lake(
-    desc=None, map_name=None, is_slippery=False, render_mode=None
-):
+def load_frozen_lake(desc=None, map_name=None, is_slippery=False):
     """
-    Loads the pre-made FrozenLakeEnv evnironment from gymnasium
+    Loads the FrozenLake environment from gymnasium.
+
     Args:
-        desc (list, optional): containing a custom description
-            of the map to load for the environment
-        map_name (str, optional): containing the pre-made map to load
-        is_slippery (bool, optional): is a boolean to determine if
-            the ice is slippery
+        desc: list of lists containing a custom description of the map,
+              or None to use a pre-made or random map.
+        map_name: string of a pre-made map name (e.g., '4x4', '8x8'),
+                  or None for a random map.
+        is_slippery: boolean determining if the ice is slippery.
+
     Returns:
-        the environment
+        The loaded FrozenLake environment.
     """
     env = gym.make(
-        'FrozenLake-v1',
+        "FrozenLake-v1",
         desc=desc,
         map_name=map_name,
-        is_slippery=is_slippery,
-        render_mode="ansi"
+        is_slippery=is_slippery
     )
     return env
