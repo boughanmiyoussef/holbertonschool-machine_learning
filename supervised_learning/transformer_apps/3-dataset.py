@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Module for preparing, encoding, and setting up a data pipeline for TED HRLR
-translation dataset from Portuguese to English using pre-trained tokenizers
+Dataset class for TED HRLR Portuguese→English translation
+with pretrained BERT tokenizers and TensorFlow data pipeline.
 """
 
 import tensorflow as tf
