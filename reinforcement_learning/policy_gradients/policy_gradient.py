@@ -26,7 +26,6 @@ def policy(state, weight):
     return softmax(z)
 
 
-
 def policy_gradient(state, weight):
     """
     Compute the Monte-Carlo policy gradient based on state and a weight matrix
@@ -38,14 +37,17 @@ def policy_gradient(state, weight):
     """
     probabilities = policy(state, weight)
 
-    action = np.random.choice(len(probabilities), p=probabilities)
+    # Reshape probabilities if they are in a 2D array [[p1, p2...]]
+    probs = probabilities.flatten()
 
-    one_hot = np.zeros_like(probabilities)
+    action = np.random.choice(len(probs), p=probs)
 
-    one_hot[action] = 1
+    # Compute the gradient of the log-probability
+    # For softmax, d(log_pi)/dw = state * (y_target - probabilities)
+    d_softmax = np.zeros_like(probs)
+    d_softmax[action] = 1
+    d_log_pi = d_softmax - probs
 
-    diff = one_hot - probabilities
-
-    grad = np.outer(state, diff)
+    grad = np.outer(state, d_log_pi)
 
     return action, grad
