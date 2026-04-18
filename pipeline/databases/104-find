@@ -1,2 +1,2 @@
-// Regex filter
-db.school.find({name: {$regex:/^Holberton/}})
+-- Lists all documents with name starting by Holberton
+db.school.find({ name: /^Holberton/ });
