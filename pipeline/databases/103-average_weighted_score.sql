@@ -1,8 +1,17 @@
--- lists all genres in the database hbtn_0d_tvshows_rate by their rating.
-SELECT g.name, SUM(r.rate) AS rating
-FROM tv_genres AS g
-JOIN tv_show_genres AS sg ON g.id = sg.genre_id
-JOIN tv_shows AS s ON sg.show_id = s.id
-JOIN tv_show_ratings AS r ON s.id = r.show_id
-GROUP BY g.name
-ORDER BY rating DESC;
+-- Creates a stored procedure that computes and stores the weighted average score of a user
+
+DELIMITER $$
+
+CREATE PROCEDURE ComputeAverageWeightedScoreForUser(IN user_id INT)
+BEGIN
+    UPDATE users
+    SET average_score = (
+        SELECT SUM(c.score * p.weight) / SUM(p.weight)
+        FROM corrections c
+        JOIN projects p ON c.project_id = p.id
+        WHERE c.user_id = user_id
+    )
+    WHERE id = user_id;
+END $$
+
+DELIMITER ;
